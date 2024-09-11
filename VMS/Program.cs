@@ -145,7 +145,7 @@ builder.Services.AddCors(options =>
         policy.SetIsOriginAllowed(origin =>
         {
             // Allow port 4200 specifically
-            if (origin == "http://localhost:4200")
+            if (origin == "http://localhost:4200" || origin == "http://172.16.4.89:9000")
             {
                 return true;
             }
