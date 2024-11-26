@@ -145,7 +145,7 @@ builder.Services.AddCors(options =>
         policy.SetIsOriginAllowed(origin =>
         {
             // Allow port 4200 specifically
-            if (origin == "http://localhost:4200" || origin == "http://172.16.4.89:9000" || origin == "https://visitor-management-system-frontend-ey8tysmg7.vercel.app/")
+            if (origin == "http://localhost:4200" || origin == "http://172.16.4.89:9000" || origin == "https://visitor-management-system-frontend-ey8tysmg7.vercel.app")
             {
                 return true;
             }
