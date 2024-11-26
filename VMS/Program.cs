@@ -142,19 +142,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
     {
-        policy.SetIsOriginAllowed(origin =>
-        {
-            // Allow port 4200 specifically
-            if (origin == "http://localhost:4200" || origin == "http://172.16.4.89:9000" || origin == "https://visitor-management-system-frontend-ey8tysmg7.vercel.app")
-            {
-                return true;
-            }
-
-            // Allow any other port on localhost
-            // Uri uri = new Uri(origin);
-            // return uri.Host == "localhost";
-            return true;
-        })
+        policy
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()
