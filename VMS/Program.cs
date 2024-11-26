@@ -154,6 +154,7 @@ builder.Services.AddCors(options =>
             Uri uri = new Uri(origin);
             return uri.Host == "localhost";
         })
+        .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials(); // Use this cautiously
