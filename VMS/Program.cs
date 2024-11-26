@@ -151,8 +151,9 @@ builder.Services.AddCors(options =>
             }
 
             // Allow any other port on localhost
-            Uri uri = new Uri(origin);
-            return uri.Host == "localhost";
+            // Uri uri = new Uri(origin);
+            // return uri.Host == "localhost";
+            return true;
         })
         .AllowAnyOrigin()
         .AllowAnyMethod()
