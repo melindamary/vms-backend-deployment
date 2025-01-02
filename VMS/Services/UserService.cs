@@ -155,7 +155,8 @@ namespace VMS.Services
                 OfficeLocation = locations.Name,     
                 OfficeLocationId = locations.Id,
                 IsActive = user.IsActive,
-                ValidFrom = user.ValidFrom
+                ValidFrom = user.ValidFrom,
+                Password = user.Password
             };
         }
 
@@ -250,6 +251,23 @@ namespace VMS.Services
         {
 
             return await _userRepository.UsernameExistsAsync(username);
+
+        }
+
+        public async Task<bool> CheckOldeUserPasswordWhenResetPassword(int userId, string newPassword)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+            var hashedOldPassword = user.Password;
+
+            var result = _passwordHasher.VerifyHashedPassword(null, hashedOldPassword, newPassword);
+           
+            if (result == PasswordVerificationResult.Success)
+            { 
+                return true; 
+            }
+            else
+            { return false; 
+            }  
 
         }
     }

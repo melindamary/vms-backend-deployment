@@ -101,6 +101,38 @@ namespace VMS.Controllers
         }
 
 
+        [HttpGet("{id}/{newPassword}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(APIResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(APIResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(APIResponse))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(APIResponse))]
+        public async Task<ActionResult<APIResponse>> CheckOldPassword(int id,string newPassword)
+        {
+            {
+                if (string.IsNullOrWhiteSpace(newPassword) )
+                {
+                    var errorResponse = new APIResponse
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        ErrorMessages = new List<string> { "Password  and Id is required" }
+                    };
+                    return BadRequest(errorResponse);
+                }
+
+                var exists = await _userService.CheckOldeUserPasswordWhenResetPassword(id,newPassword);
+
+                var response = new APIResponse
+                {
+                    IsSuccess = true,
+                    Result = exists, // If username does not exist, return true
+                    StatusCode = HttpStatusCode.OK
+                };
+
+                return Ok(response);
+            }
+        }
+
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(APIResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(APIResponse))]

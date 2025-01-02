@@ -15,5 +15,6 @@
        
         public int? IsActive { get; set; }
         public DateTime? ValidFrom { get; set; }
+        public string Password { get; set; }
     }
 }
